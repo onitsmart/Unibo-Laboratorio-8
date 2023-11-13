@@ -1,0 +1,42 @@
+[
+  {
+    "outputFileName": "wwwroot/css/bundle-global.css",
+    "inputFiles": [
+      "node_modules/bootstrap/dist/css/bootstrap.css",
+      "node_modules/toastify-js/src/toastify.css",
+      "wwwroot/css/site.css"
+    ],
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "wwwroot/js/bundle-global.js",
+    "inputFiles": [
+      "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
+      "node_modules/toastify-js/src/toastify.js",
+      "node_modules/mark.js/dist/mark.js",
+      "wwwroot/js/site.js"
+    ],
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "wwwroot/js/bundle-vue.js",
+    "inputFiles": [
+      "node_modules/vue/dist/vue.js"
+    ],
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "wwwroot/js/bundle-vue.release.js",
+    "inputFiles": [
+      "node_modules/vue/dist/vue.min.js"
+    ],
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "wwwroot/css/bundle-vue-multiselect.css",
+    "inputFiles": [
+      "node_modules/vue-multiselect/dist/vue-multiselect.min.css"
+    ],
+    "sourceMap": true
+  }
+]

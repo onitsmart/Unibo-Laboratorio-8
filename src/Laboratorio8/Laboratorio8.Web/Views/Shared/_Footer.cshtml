@@ -1,0 +1,34 @@
+﻿@inject IHtmlLocalizer<Laboratorio8.Web.SharedResource> SharedLocalizer
+@{
+    var routeArea = ViewContext.RouteData.Values["Area"]?.ToString();
+    var routeController = ViewContext.RouteData.Values["Controller"]?.ToString();
+
+    var precompilatoPerMail = "mailto:assistenza@utilities.it?body=Richiesta di assistenza per on.lineeguida specificare nel dettaglio il comportamento inatteso";
+}
+<footer class="onit-page-footer">
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-4">
+                <img class="img-fluid" src="~/Images/logo-utilities.png" />
+                <span class="mb-1">
+                    <a href="https://www.utilities.it" target="_blank">© 2021 Onit Group S.r.l. Tutti i diritti riservati.</a>
+                    <span>Partita IVA 03240560403</span>
+                    <span>Via dell'Arrigoni, 308</span>
+                    <span>47522 Cesena (FC), Italy</span>
+                </span>
+                <a class="font-weight-light" href="~/Shared/Privacy" target="_blank">Informativa privacy e Cookies</a>
+            </div>
+            <div class="col-4 text-center">
+                <span class="software-name">on.<span class="software-name-coloured"><strong>lineeguida</strong></span></span>
+                <div class="text-muted">@string.Format("{0}", typeof(Laboratorio8.Web.AppSettings).Assembly.GetName().Version)</div>
+            </div>
+            <div class="col-4 text-right">
+                <strong>Hai bisogno di assistenza?</strong>
+                <p>
+                    Scrivi a
+                    <a href="@precompilatoPerMail">assistenza@utilities.it</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>

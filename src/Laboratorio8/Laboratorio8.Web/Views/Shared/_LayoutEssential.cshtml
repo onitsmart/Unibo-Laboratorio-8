@@ -1,0 +1,30 @@
+﻿@inject IHtmlLocalizer<Laboratorio8.Web.SharedResource> SharedLocalizer
+@{
+    Layout = "_LayoutHtml";
+}
+@section metas{
+    @RenderSection("metas", false)
+}
+@section styles{
+    <link href="~/css/bundle-global.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/node_modules/@@onit/fontawesome-pro-web-light/css/all.css" asp-append-version="true" rel="stylesheet" />
+    @RenderSection("styles", false)
+}
+<div id="pageId" class="onit-page">
+    <div class="onit-page-sticky-top" id="onit-page-sticky-top">
+        <nav class="navbar navbar-expand navbar-dark onit-page-menu ">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="@Url.Action(MVC.Home.Index())">
+                    <img class="onit-suites-logo" src="~/images/logo-Onplant.svg" /><span class="onit-suites-app-logo">Nome applicativo</span>
+                </a>
+            </div>
+        </nav>
+        @RenderSection("pageTitle", false)
+    </div>
+    @RenderSection("pageSubtitle", false)
+    @RenderBody()
+</div>
+@section scripts{
+    <script src="~/js/bundle-global.js" asp-append-version="true"></script>
+    @RenderSection("scripts", false)
+}

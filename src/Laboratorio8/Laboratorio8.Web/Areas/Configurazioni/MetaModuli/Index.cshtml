@@ -1,0 +1,142 @@
+﻿@model Laboratorio8.Web.Areas.Configurazioni.MetaModuli.IndexViewModel
+@{
+    ViewData["Title"] = SharedLocalizer["Meta moduli"].Value;
+    ViewData["FullscreenClass"] = "onit-html-fullscreen-lg";
+}
+@section pageTitle{
+    <nav class="navbar navbar-expand navbar-light flex-wrap onit-page-title">
+        <ul class="navbar-nav">
+            <li>
+                <a class="navbar-brand">
+                    @ViewData["Title"] <small class="text-muted" title="@SharedLocalizer["numero di elementi individuati con i filtri attuali"]">(@Model.TotalItems)</small>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav flex-wrap ms-auto">
+            <li>
+                <a class="btn btn-light  ms-2" href="@Url.Action(MVC.Configurazioni.MetaModuli.New())" title="@SharedLocalizer["Inserisci un nuovo elemento"]">
+                    <i class="fa-solid fa-plus"></i>&nbsp;@SharedLocalizer["Nuovo"]
+                </a>
+            </li>
+        </ul>
+    </nav>
+}
+@section pageSubtitle{
+    <nav class="navbar navbar-expand navbar-light flex-wrap onit-page-subtitle">
+        <form method="get" id="annullaRicerca">
+        </form>
+        <form class="onit-form-search" method="get" autocomplete="off">
+            <div class="row">
+
+                <div class="col-sm-auto onit-form-search-col-auto-2x">
+                    <label asp-for="Filtro"></label>
+                    <div class="input-group onit-input-group-union">
+                        <span class="input-group-text"><i class="fa-solid fa-fw fa-magnifying-glass"></i></span>
+                        <input asp-for="Filtro" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="col-sm-auto pt-2 mt-auto">
+                    <button class="btn btn-primary" type="submit">
+                        @SharedLocalizer["Cerca"]
+                    </button>
+                    <button class="btn btn-link" type="button" title="Annulla tutti i parametri della ricerca" onclick="document.getElementById('annullaRicerca').submit();">
+                        @SharedLocalizer["Azzera ricerca"]
+                    </button>
+                </div>
+            </div>
+        </form>
+    </nav>
+}
+<div class="onit-page-main">
+    <div class="container-fluid onit-html-fullscreen-keep-100">
+        <div class="row onit-html-fullscreen-keep-100">
+            <div class="col-12 p-0 onit-html-fullscreen-keep-100">
+                <div class="onit-table-container-for-fixed-column onit-html-fullscreen-keep-100 overflow-auto">
+                    <table class="table onit-table-minwidth js-search-highlights mx-auto">
+                        <thead class="onit-table-thead-sticky">
+                            <tr>
+                                <th class="text-nowrap">
+                                    @Html.DisplayNameFor(x => x.Moduli.FirstOrDefault().Titolo)
+                                </th>
+                                <th class="onit-table-col-minwidth d-none d-lg-table-cell">
+                                    @Html.DisplayNameFor(x => x.Moduli.FirstOrDefault().DataModifica)
+                                </th>
+                                <th class="onit-table-col-minwidth">@SharedLocalizer["Azioni"]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Moduli.Any() == false)
+                            {
+                                <tr>
+                                    <td colspan="2" class="d-table-cell d-md-none">@SharedLocalizer["Nessun elemento trovato con i filtri correnti"]</td>
+                                    <td colspan="3" class="d-none d-lg-table-cell">@SharedLocalizer["Nessun elemento trovato con i filtri correnti"]</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="d-table-cell d-md-none text-center">
+                                        <a class="btn btn-link text-nowrap" href="@Url.Action(MVC.Configurazioni.MetaModuli.New())" title="@SharedLocalizer["Inserisci un nuovo elemento"]">
+                                            <i class="fa-solid fa-plus"></i>&nbsp;@SharedLocalizer["Inserisci il tuo primo modulo"]
+                                        </a>
+                                    </td>
+                                    <td colspan="3" class="d-none d-lg-table-cell text-center">
+                                        <a class="btn btn-link text-nowrap" href="@Url.Action(MVC.Configurazioni.MetaModuli.New())" title="@SharedLocalizer["Inserisci un nuovo elemento"]">
+                                            <i class="fa-solid fa-plus"></i>&nbsp;@SharedLocalizer["Inserisci il tuo primo modulo"]
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                @foreach (var modulo in Model.Moduli)
+                                {
+                                    <tr>
+                                        <td scope="row" class="text-nowrap">
+                                            <a href="@Url.Action(MVC.Configurazioni.MetaModuli.Edit(modulo.Id))" title="@SharedLocalizer["Modifica elemento"]"> @(string.IsNullOrWhiteSpace(modulo.Titolo) ? "Senza titolo" : modulo.Titolo)</a><br />
+                                            <span class="d-none d-lg-inline-block">@modulo.Descrizione</span>
+                                        </td>
+                                        <td class="text-nowrap d-none d-lg-table-cell text-center">
+                                            @modulo.DataModificaString
+                                        </td>
+                                        <td class="onit-table-cell-with-buttons" title="@SharedLocalizer["Altre azioni"]" data-onit-not-navigate>
+                                            <div class="dropdown text-end">
+                                                <button tabindex="-1" class="btn btn-link btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-onit-not-navigate title="@SharedLocalizer["Altre azioni"]"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                                    <h6 class="dropdown-header">@SharedLocalizer["Altre azioni"]</h6>
+                                                    <a class="dropdown-item" href="@Url.Action(MVC.Compilazioni.Moduli.Index(modulo.Id))"><i class="fa-solid fa-file-arrow-down"></i>&nbsp;@SharedLocalizer["Moduli compilati"]</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <button class="btn btn-link dropdown-item text-danger" onclick="document.getElementById('eliminaModulo').submit()"><i class="fa-solid fa-trash"></i>&nbsp;@SharedLocalizer["Elimina"]</button>
+                                                    <form id="eliminaModulo" autocomplete="off" method="post" action="@Url.Action(MVC.Configurazioni.MetaModuli.Elimina())">
+                                                        <input type="hidden" value="@modulo.Id" name="IdMetaModulo">
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @if (Model.Filtro != null)
+    {
+        // Evidenzio i match del filtro libero
+        <script type="text/javascript">
+            var context = document.querySelector(".js-search-highlights tbody");
+            var instance = new Mark(context);
+
+            var searchedWords = [];
+            @foreach (var word in Model.Filtro.Split(" "))
+            {
+                @:searchedWords.push("@word");
+            }
+
+                instance.mark(searchedWords);
+        </script>
+    }
+}

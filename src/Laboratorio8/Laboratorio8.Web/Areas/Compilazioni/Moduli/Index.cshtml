@@ -1,0 +1,68 @@
+﻿@model Laboratorio8.Web.Areas.Compilazioni.Moduli.IndexViewModel
+@{
+    ViewData["Title"] = @Model.Titolo;
+    ViewData["FullscreenClass"] = "onit-html-fullscreen-lg";
+}
+@section pageTitle{
+    <nav class="navbar navbar-expand navbar-light flex-wrap onit-page-title">
+        <ul class="navbar-nav">
+            <li>
+                <a class="navbar-brand">
+                    @ViewData["Title"] <small class="text-muted" title="@SharedLocalizer["numero di elementi individuati"]">(@Model.TotalItems)</small>
+                </a>
+                <a href="@Url.Action(MVC.Compilazioni.Moduli.Edit(Model.IdMetaModulo))" target="_blank" class="btn btn-light" title="Compila il modulo"><i class="fa-solid fa-pencil"></i>Compila</a>
+            </li>
+        </ul>
+    </nav>
+}
+<div class="onit-page-main">
+    <div class="container-fluid onit-html-fullscreen-keep-100">
+        <div class="row onit-html-fullscreen-keep-100">
+            <div class="col-12 p-0 onit-html-fullscreen-keep-100">
+                <div class="onit-table-container-for-fixed-column onit-html-fullscreen-keep-100 overflow-auto">
+                    <table class="table onit-table-minwidth js-search-highlights mx-auto">
+                        <thead class="onit-table-thead-sticky">
+                            <tr>
+                                <th class="text-nowrap">
+                                    @SharedLocalizer["Data compilazione"]
+                                </th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Moduli.Any() == false)
+                            {
+                                <tr>
+                                    <td colspan="3">@SharedLocalizer["Nessun elemento trovato"]</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <a href="@Url.Action(MVC.Compilazioni.Moduli.Edit(Model.IdMetaModulo))" target="_blank" class="btn btn-link text-nowrap" title="Compila il modulo"><i class="fa-solid fa-pencil"></i>Compila il tuo primo modulo</a>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                @foreach (var modulo in Model.Moduli)
+                                {
+                                    <tr>
+                                        <td scope="row" class="text-nowrap">
+                                            @modulo.DataCompilazioneString
+                                        </td>
+                                        <td scope="row" class="text-nowrap">
+                                            <a href="@Url.Action(MVC.Compilazioni.Moduli.Report(modulo.Id, true))" title="@SharedLocalizer["Anteprima"]">@SharedLocalizer["Anteprima"]</a>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action(MVC.Compilazioni.Moduli.Download(modulo.Id))" title="@SharedLocalizer["Scarica"]"> @SharedLocalizer["Scarica"]</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

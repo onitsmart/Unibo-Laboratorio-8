@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html lang="@this.CurrentCulture().TwoLetterISOLanguageName" class="@ViewData["PrintPreviewClass"]">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"]</title>
+    @RenderSection("googlehead", false)
+    @RenderSection("metas", false)
+    <link href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/node_modules/@@onit/onit-frontend/dist/css/bootstrap5.print.utilities.css" asp-append-version="true" rel="stylesheet" />
+    @RenderSection("styles", false)
+</head>
+<body >
+    @RenderSection("googlebody", false)
+    @RenderBody()
+    @RenderSection("scripts", false)
+</body>
+</html>

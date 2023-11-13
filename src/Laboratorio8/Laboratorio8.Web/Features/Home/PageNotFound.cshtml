@@ -1,0 +1,31 @@
+﻿@inject IHtmlLocalizer<Laboratorio8.Web.SharedResource> SharedLocalizer
+@model Laboratorio8.Web.Features.Home.ErrorViewModel
+@{
+    Layout = "_LayoutEssential";
+
+    ViewData["Title"] = @SharedLocalizer["404 Pagina non trovata"].Value;
+}
+@section pageTitle{
+    <nav class="navbar navbar-expand navbar-light flex-wrap onit-page-title">
+        <a class="navbar-brand me-auto">@ViewData["Title"]</a>
+    </nav>
+}
+<div class="onit-page-main">
+    <div class="container-lg">
+        <div class="row">
+            <div class="col">
+
+                <h1 class="text-warning pt-5 pb-4">@SharedLocalizer["404"]</h1>
+                <h2>@SharedLocalizer["La pagina che stai cercando sembra non essere più raggiungibile"]</h2>
+                <p>
+                    @SharedLocalizer["Visualizzi questo errore se l'indirizzo della pagina non è più riconosciuto come valido."]<br />
+                    @SharedLocalizer["Potrebbe essere un indirizzo che è cambiato a seguido di un aggiornamento o un errore di trascrizione."]<br />
+                    @SharedLocalizer["Verifica l'indirizzo o procedi a ricercare la pagina partendo dalla home dell'applicativo."]<br />
+                </p>
+                <a class="btn btn-link" href="@Url.Action(MVC.Home.Index())">
+                    @SharedLocalizer["Torna alla homepage dell'applicativo"]
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

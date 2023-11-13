@@ -1,0 +1,58 @@
+﻿@model Laboratorio8.Web.Areas.Compilazioni.Moduli.ReportViewModel
+@{
+    ViewData["Title"] = SharedLocalizer["Modulo"].Value + " - " + Model.Titolo;
+
+    Layout = "~/Views/Shared/Stampa/_LayoutStampa.cshtml";
+    @if (Model.PrintPreview)
+    {
+        ViewData["PrintPreviewClass"] = "onit-print-client-preview";   // Abilita lo stile di anteprima client della stampa
+    }
+
+}
+
+@section pageTitle{
+    <nav class="navbar navbar-expand navbar-light flex-wrap onit-page-title">
+        <div class="navbar-brand text-truncate">
+          
+        </div>
+    </nav>
+}
+
+<div class="onit-page-main">
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-12">
+                <h1>@Model.Titolo</h1>
+                <p>@Model.Descrizione</p>
+
+                @for (var indexGruppo = 0; indexGruppo < Model.Gruppi.Count(); indexGruppo++)
+                {
+                    <input type="hidden" asp-for="@Model.Gruppi[indexGruppo].IdMetaGruppo" />
+
+                    <fieldset>
+                        <legend>@Model.Gruppi[indexGruppo].Etichetta</legend>
+
+                        <div class="row">
+                            @for (var indexCampo = 0; indexCampo < @Model.Gruppi[indexGruppo].Campi.Count(); indexCampo++)
+                            {
+
+                                <div class="form-group @(Model.Gruppi[indexGruppo].Campi[indexCampo].Dimensione == Laboratorio8.Moduli.DimensioneCampo.SingolaColonna ? "col-12 col-md-6 col-xl-3" : Model.Gruppi[indexGruppo].Campi[indexCampo].Dimensione == Laboratorio8.Moduli.DimensioneCampo.DoppiaColonna ? "col-12 col-md-6" : "col-12")">
+
+                                    <label>@Model.Gruppi[indexGruppo].Campi[indexCampo].Etichetta</label>
+
+                                    @switch (Model.Gruppi[indexGruppo].Campi[indexCampo].Tipo)
+                                    {
+                                        case Laboratorio8.Moduli.TipologiaMetaCampo.TestoBreve:
+                                        default:
+                                            <span>@Model.Gruppi[indexGruppo].Campi[indexCampo].Contenuto</span>
+                                            break;
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </fieldset>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+﻿// VARIABILI NOSTRE E DI BOOTSTRAP
+
+// Importo prima le funzioni utilizzate dentro le variabili altrimenti non compila
+@import "../../node_modules/bootstrap/scss/_functions";
+// Importo le variabili bootstrap per poterle ri utilizzare
+@import "../../node_modules/bootstrap/scss/_variables";

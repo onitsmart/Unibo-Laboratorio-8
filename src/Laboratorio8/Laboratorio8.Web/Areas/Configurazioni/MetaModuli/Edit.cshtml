@@ -1,0 +1,121 @@
+﻿@model Laboratorio8.Web.Areas.Configurazioni.MetaModuli.EditViewModel
+@{
+    ViewData["Title"] = SharedLocalizer["Modulo"].Value + " - " + Model.Titolo;
+}
+@section styles{
+    <link href="~/Areas/Configurazioni/MetaModuli/edit.css" asp-append-version="true" rel="stylesheet" />
+}
+@section pageTitle{
+    <nav class="navbar navbar-expand navbar-light flex-wrap onit-page-title">
+        <div class="navbar-brand text-truncate me-auto">
+            @SharedLocalizer["Configurazione Meta Modulo"].Value
+        </div>
+        <a href="@Model.UrlCompilazione" target="_blank" class="btn btn-light" title="Compila il modulo" ><i class="fa-solid fa-pencil"></i>Compila</a>
+    </nav>
+}
+
+<div class="onit-page-main">
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-12">
+                <form autocomplete="off" method="post" class="onit-form-sm" action="#">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div>
+                        <input type="text" class="form-control" name="Titolo" v-model="model.titolo" maxlength="50" v-on:blur="modificaTitoloMetaModulo()" v-on:focus="aggiungiUtenteInCollaborazione()">
+                        <textarea class="form-control" name="Descrizione" v-model="model.descrizione" maxlength="250" v-on:blur="modificaDescrizioneMetaModulo()" v-on:focus="aggiungiUtenteInCollaborazione()"></textarea>
+
+                        <div v-if="model.utentiAttivi.some(x => x.idMetaGruppo == null)">
+                            <template v-for="utente in model.utentiAttivi.filter(x => x.idMetaGruppo == null)">
+                                <img class="user-profile-picture" v-bind:src="utente.gravatarUrl" />
+                            </template>
+                        </div>
+                    </div>
+
+                    <template v-for="(gruppo, groupIdx) in model.metaGruppi">
+                        <div>
+                            <input type="text" class="form-control" name="'Gruppo[' + groupIdx + '].Etichetta'" v-model="gruppo.etichetta" maxlength="50" v-on:blur="modificaEtichettaMetaGruppo(gruppo.id)">
+                            <button type="button" v-on:click="eliminaMetaGruppo(gruppo.id)">
+                                <i class="fa fa-trash-alt" title="Elimina gruppo"></i>
+                            </button>
+                        </div>
+
+                        <template v-for="(campo, campoIdx) in gruppo.metaCampi">
+                            <div>
+                                <div v-if="model.utentiAttivi.some(x => x.idMetaGruppo == gruppo.id && x.idMetaCampo == campo.id)">
+                                    <template v-for="utente in model.utentiAttivi.filter(x => x.idMetaGruppo == gruppo.id && x.idMetaCampo == campo.id)">
+                                        <img class="user-profile-picture" v-bind:src="utente.gravatarUrl" />
+                                    </template>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" name="'Gruppo[' + groupIdx + '].Campo[' + campoIdx + '].Etichetta'" v-model="campo.etichetta" maxlength="50" v-on:blur="modificaEtichettaMetaCampo(gruppo.id, campo.id)" v-on:focus="aggiungiUtenteInCollaborazione(gruppo.id, campo.id)">
+                                    <button type="button" v-on:click="eliminaMetaCampo(gruppo.id, campo.id)">
+                                        <i class="fa fa-trash-alt" title="Elimina campo"></i>
+                                    </button>
+                                </div>
+
+                                <div>
+                                    <div>
+                                        <select name="'Gruppo[' + groupIdx + '].Campo[' + campoIdx + '].Tipo'" v-model="campo.tipo" v-on:change="modificaTipologiaMetaCampo(gruppo.id, campo.id)" v-on:focus="aggiungiUtenteInCollaborazione(gruppo.id, campo.id)">
+                                            <option v-for="option in model.tipologieMetacampiOptions" v-bind:value="option.value">{{ option.text }}</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <select name="'Gruppo[' + groupIdx + '].Campo[' + campoIdx + '].Dimensione'" v-model="campo.dimensione" v-on:change="modificaDimensioneMetaCampo(gruppo.id, campo.id)" v-on:focus="aggiungiUtenteInCollaborazione(gruppo.id, campo.id)">
+                                            <option v-for="option in model.dimensioniOptions" v-bind:value="option.value">{{ option.text }}</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="'Gruppo[' + groupIdx + '].Campo[' + campoIdx + '].Obbligatorio'" v-model="campo.obbligatorio" v-bind:id="'checkbox-obbligatorio' + campo.id" v-on:change="modificaObbligatorietaMetaCampo(gruppo.id, campo.id)" v-on:focus="aggiungiUtenteInCollaborazione(gruppo.id, campo.id)" />
+                                        <label v-bind:for="'checkbox-obbligatorio' + campo.id">Obbligatorio</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <button type="button" title="Aggiungi nuovo campo" v-on:click="aggiungiMetaCampo(gruppo.id)"><i class="fa-solid fa-circle-plus"></i></button>
+                    </template>
+                    <button type="button" title="Aggiungi nuovo gruppo" v-on:click="aggiungiMetaGruppo()"><i class="fa-solid fa-circle-plus"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <div id="lostConnection" class="d-none text-white">
+            <h3>Ho perso la connessione con il server</h3>
+            <p><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;Attendi, sto riprovando a connettermi per te</p>
+        </div>
+        <div id="lostConnectionManualRetry" class="d-none text-white">
+            <h3>Ho perso la connessione con il server e non riesco più a ricollegarmi</h3>
+            <p>Prova ad aggiornare la pagina manualmente</p>
+            <button class="btn btn-primary" onclick="location.reload(true)"><i class="fa fa-refresh"></i>&nbsp;Ricarica la pagina</button>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="/js/bundle-vue.js" asp-append-version="true"></script>
+    <script src="~/Areas/Configurazioni/MetaModuli/Edit.js" asp-append-version="true"></script>
+
+    <script src="~/node_modules/@@microsoft/signalr/dist/browser/signalr.js" asp-append-version="true"></script>
+    <script src="~/js/signalRConnectionManager.js" asp-append-version="true"></script>
+
+    <script type="application/json" id="Seed_JSON">
+        @Html.Raw(Model.ToJson())
+    </script>
+    <script type="text/javascript">
+        var signalRManager = new SignalRConnectionManager("/ConfigurazioneMetaModuliHub", "@Model.Id", "EntraNelGruppo", "EsciDalGruppo");
+        signalRManager.registerEvents();
+        signalRManager.startConnection();
+
+        var editModel = new Configurazioni.MetaModuli.editVueModel(signalRManager.connection, JSON.parse(document.getElementById("Seed_JSON").innerText));
+
+        var vueModel = new Vue({
+            el: '#pageId',
+            data: editModel,
+            computed: {
+            }
+        });
+
+    </script>
+}

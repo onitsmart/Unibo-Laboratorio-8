@@ -1,0 +1,12 @@
+﻿@import "site.variables.scss";
+
+// Layout per codici di esempio
+.code-example-rendered {
+    border: 1px solid #f5f2f0;
+    padding: 1rem;
+    overflow: visible !important;
+
+    & ~ pre[class*="language-"] {
+        margin-top: 0;
+    }
+}

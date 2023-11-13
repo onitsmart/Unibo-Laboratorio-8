@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "_LayoutLogin";
+    ViewData["FullscreenClass"] = "onit-html-fullscreen";
+}
+@section metas{
+    @RenderSection("metas", false)
+}
+@section styles{
+    <style>
+        .onit-page-main-login {
+            background-color: #293036; /* Picture prevalent color for better loading */
+            background-image: url('../images/login-example.jpg'); /* Select the correct size and compression for better performance */
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
+    @RenderSection("styles", false)
+}
+<div class="onit-page-main-login">
+    <div class="onit-login-box">
+        <div class="onit-login-box-title">
+            <h1><img class="onit-suites-logo" src="~/images/logo-OnModuli.png" style="height:2.5rem" /></h1>
+            <div class="small">@string.Format("v{0}", typeof(Laboratorio8.Web.AppSettings).Assembly.GetName().Version)</div>
+        </div>
+        @RenderBody()
+        <div class="onit-login-box-footer">
+            <ul class="nav onit-login-box-footer-company-nav">
+                <li class="nav-item dropdown ">
+                    <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="~/images/logo-utilities.png" /></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <span class="dropdown-item-text text-muted">
+                                <strong>Powered by</strong><br />
+                                Onit Group S.r.l.<br />
+                                Via dell'Arrigoni, 308<br />
+                                47522 Cesena (FC) Italy
+                            </span>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="https://utilities.it" target="_blank">@SharedLocalizer["Visita il nostro sito"] <i class="fa-solid fa-up-right-from-square"></i></a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav ms-auto">
+                @if (SupportedCultures.Cultures.Count() > 1)
+                {
+                    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-earth-americas"></i> @requestCulture.RequestCulture.UICulture.TwoLetterISOLanguageName.ToUpperInvariant()
+                        </a>
+                        <form id="selectLanguage" method="post" action="@Url.Action(MVC.Home.ChangeLanguageTo())" class="form-horizontal d-none" role="form"></form>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                            <li><h6 class="dropdown-header">@SharedLocalizer["Cambia lingua"]</h6></li>
+                            @foreach (var item in SupportedCultures.Cultures)
+                            {
+                                <li>
+                                    <button role="button" type="submit" form="selectLanguage" name="cultureName" value="@item.Name" class="dropdown-item @((item.Name == requestCulture.RequestCulture.UICulture.Name)?"active":"")">
+                                        @item.Name @item.NativeName
+                                    </button>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @RenderSection("scripts", false)
+}

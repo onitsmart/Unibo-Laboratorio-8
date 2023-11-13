@@ -1,0 +1,54 @@
+﻿@model Laboratorio8.Web.Areas.Compilazioni.Moduli.EditViewModel
+@{
+    ViewData["Title"] = SharedLocalizer["Modulo"].Value + " - " + Model.Titolo;
+}
+
+@section pageTitle{
+    <nav class="navbar navbar-expand navbar-light flex-wrap onit-page-title">
+        <div class="navbar-brand text-truncate">
+            @Model.Titolo
+        </div>
+        <button type="button" class="btn btn-success" title="Salva il modulo" onclick="document.getElementById('form-modulo').submit()"><i class="fa-solid fa-floppy-disk"></i> Salva</button>
+    </nav>
+}
+
+<div class="onit-page-main">
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-12">
+                <p>@Model.Descrizione</p>
+
+                <form id="form-modulo" autocomplete="off" method="post" class="onit-form-sm">
+                    @for (var indexGruppo = 0; indexGruppo < Model.Gruppi.Count(); indexGruppo++)
+                    {
+                        <input type="hidden" asp-for="@Model.Gruppi[indexGruppo].IdMetaGruppo" />
+
+                        <fieldset>
+                            <legend>@Model.Gruppi[indexGruppo].Etichetta</legend>
+
+                            <div class="row">
+                                @for (var indexCampo = 0; indexCampo < @Model.Gruppi[indexGruppo].Campi.Count(); indexCampo++)
+                                {
+                                    <input type="hidden" asp-for="@Model.Gruppi[indexGruppo].Campi[indexCampo].IdMetaCampo" />
+                                    <input type="hidden" asp-for="@Model.Gruppi[indexGruppo].Campi[indexCampo].Obbligatorio" />
+
+                                    <div class="form-group @(Model.Gruppi[indexGruppo].Campi[indexCampo].Dimensione == Laboratorio8.Moduli.DimensioneCampo.SingolaColonna ? "col-12 col-md-6 col-xl-3" : Model.Gruppi[indexGruppo].Campi[indexCampo].Dimensione == Laboratorio8.Moduli.DimensioneCampo.DoppiaColonna ? "col-12 col-md-6" : "col-12")">
+                                        <label class="@(Model.Gruppi[indexGruppo].Campi[indexCampo].Obbligatorio ? "onit-label-required" : "")">@Model.Gruppi[indexGruppo].Campi[indexCampo].Etichetta</label>
+
+                                        @switch (Model.Gruppi[indexGruppo].Campi[indexCampo].Tipo)
+                                        {
+                                            case Laboratorio8.Moduli.TipologiaMetaCampo.TestoBreve:
+                                            default:
+                                                <input type="text" asp-for="@Model.Gruppi[indexGruppo].Campi[indexCampo].Contenuto" disabled="@Model.Readonly" />
+                                                break;
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </fieldset>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

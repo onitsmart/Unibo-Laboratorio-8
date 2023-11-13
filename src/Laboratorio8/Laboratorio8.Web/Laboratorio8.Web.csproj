@@ -1,0 +1,142 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<NeutralLanguage>it-IT</NeutralLanguage>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.13" />
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.2.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="MimeKit" Version="4.3.0" />
+		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.5" />
+		<PackageReference Include="PuppeteerSharp" Version="12.0.0" />
+		<PackageReference Include="R4Mvc" Version="1.0.0-alpha2-00395" />
+		<PackageReference Include="R4Mvc.Tools-alphavaleriob" Version="1.0.0-alphavaleriob-00395">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.13" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Areas\**\*.js" CopyToPublishDirectory="PreserveNewest" />
+		<Content Include="Features\**\*.js" CopyToPublishDirectory="PreserveNewest" />
+		<Content Include="Areas\**\*.css" CopyToPublishDirectory="PreserveNewest" />
+		<Content Include="Features\**\*.css" CopyToPublishDirectory="PreserveNewest" />
+		<Content Include="Areas\**\content\*.*" CopyToPublishDirectory="PreserveNewest" />
+		<Content Include="Features\**\content\*.*" CopyToPublishDirectory="PreserveNewest" />
+        <Content Include="node_modules\@microsoft\signalr\dist\browser\signalr.js" CopyToOutputDirectory="PreserveNewest" />
+		<None Include="node_modules\vue-multiselect\dist\*.*" CopyToPublishDirectory="PreserveNewest" />
+		<None Include="node_modules\pagedjs\dist\*.*" CopyToPublishDirectory="PreserveNewest" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="bundleconfig.json" CopyToPublishDirectory="Never" />
+		<None Include="compilerconfig.json" CopyToPublishDirectory="Never" />
+		<None Include="package.json" CopyToPublishDirectory="Never" />
+		<None Include="r4mvc.json" CopyToPublishDirectory="Never" />
+		<Content Remove="bundleconfig.json" />
+		<Content Remove="compilerconfig.json" />
+		<Content Remove="package.json" />
+		<Content Remove="r4mvc.json" />
+		<Content Update="tsconfig.json" CopyToPublishDirectory="Never" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Laboratorio8\Laboratorio8.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Areas\Compilazioni\Moduli\EditViewModel.cs">
+		  <Generator></Generator>
+		</Compile>
+		<Compile Update="Areas\Configurazioni\MetaModuli\EditViewModel.cs">
+		  <Generator>DtsGenerator</Generator>
+		  <LastGenOutput>EditViewModel.cs.d.ts</LastGenOutput>
+		</Compile>
+		<Compile Update="Areas\Elementi\Alert\ViewModels.cs">
+		  <Generator>DtsGenerator</Generator>
+		  <LastGenOutput>ViewModels.cs.d.ts</LastGenOutput>
+		</Compile>
+		<Compile Update="Areas\Elementi\Datetimepicker\IndexViewModel.cs">
+			<LastGenOutput>IndexViewModel.cs.d.ts</LastGenOutput>
+			<Generator>DtsGenerator</Generator>
+		</Compile>
+		<Compile Update="Areas\Elementi\Loading\IndexViewModel.cs">
+		  <Generator>DtsGenerator</Generator>
+		  <LastGenOutput>IndexViewModel.cs.d.ts</LastGenOutput>
+		</Compile>
+		<Compile Update="Areas\Elementi\OnitInputGroupUnion\IndexViewModel.cs">
+		  <LastGenOutput>IndexViewModel.cs.d.ts</LastGenOutput>
+		  <Generator>DtsGenerator</Generator>
+		</Compile>
+		<Compile Update="Areas\Elementi\Tinymce\IndexViewModel.cs">
+			<LastGenOutput>IndexViewModel.cs.d.ts</LastGenOutput>
+			<Generator>DtsGenerator</Generator>
+		</Compile>
+		<Compile Update="Areas\Elementi\Multiselect\IndexViewModel.cs">
+			<LastGenOutput>IndexViewModel.cs.d.ts</LastGenOutput>
+			<Generator>DtsGenerator</Generator>
+		</Compile>
+		<Compile Update="Features\Home\HomeController.cs">
+		  <Generator></Generator>
+		</Compile>
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+	  <None Update="Features\Home\ErrorViewModel.cs.d.ts">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ErrorViewModel.cs</DependentUpon>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<TypeScriptCompile Update="Areas\Configurazioni\MetaModuli\EditViewModel.cs.d.ts">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>EditViewModel.cs</DependentUpon>
+		</TypeScriptCompile>
+		<TypeScriptCompile Update="Areas\Elementi\Alert\ViewModels.cs.d.ts">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>ViewModels.cs</DependentUpon>
+		</TypeScriptCompile>
+		<TypeScriptCompile Update="Areas\Elementi\Datetimepicker\IndexViewModel.cs.d.ts">
+		  <DependentUpon>IndexViewModel.cs</DependentUpon>
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		</TypeScriptCompile>
+		<TypeScriptCompile Update="Areas\Elementi\Loading\IndexViewModel.cs.d.ts">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>IndexViewModel.cs</DependentUpon>
+		</TypeScriptCompile>
+		<TypeScriptCompile Update="Areas\Elementi\Multiselect\IndexViewModel.cs.d.ts">
+		  <DependentUpon>IndexViewModel.cs</DependentUpon>
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		</TypeScriptCompile>
+		<TypeScriptCompile Update="Areas\Elementi\OnitInputGroupUnion\IndexViewModel.cs.d.ts">
+		  <DependentUpon>IndexViewModel.cs</DependentUpon>
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		</TypeScriptCompile>
+		<TypeScriptCompile Update="Areas\Elementi\Tinymce\IndexViewModel.cs.d.ts">
+		  <DependentUpon>IndexViewModel.cs</DependentUpon>
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		</TypeScriptCompile>
+	</ItemGroup>
+
+</Project>

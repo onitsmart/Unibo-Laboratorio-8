@@ -1,0 +1,187 @@
+﻿@inject IHtmlLocalizer<Laboratorio8.Web.SharedResource> SharedLocalizer
+@using Microsoft.AspNetCore.Localization;
+@model Laboratorio8.Web.Features.Home.ErrorViewModel
+@{
+    Layout = "_LayoutEssential";
+
+    ViewData["Title"] = SharedLocalizer["Errore imprevisto"].Value;
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+}
+@section pageTitle{
+    <nav class="navbar navbar-expand navbar-light flex-wrap onit-page-title">
+        <a class="navbar-brand me-auto">@ViewData["Title"]</a>
+    </nav>
+}
+<div class="onit-page-main">
+    <div class="container-lg">
+        <div class="row">
+            <div class="col">
+
+                <h1 class="text-danger pt-5 pb-4">@SharedLocalizer["Ops! Qualcosa è andato storto :/"]</h1>
+                <p>
+                    @SharedLocalizer["Abbiamo già raccolto tutte le informazioni per fare in modo che questo non accada nuovamente."]<br />
+                    @SharedLocalizer["Puoi contribuire a velocizzare la risoluzione aggiungendo una descrizione ulteriore delle operazioni che stavi svolgendo prima del verificarsi dell'errore o tornare all'applicativo."]
+                </p>
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalRichiediAssistenza">
+                    Aggiungi informazioni
+                </button>
+
+                <a class="btn btn-light" href="javascript:window.history.back()" title="Torna all'applicativo">Torna all'applicativo</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Require assistance modal *@
+<div id="ModalRichiediAssistenza" class="modal fade o-t-modal" tabindex="-1" role="dialog" aria-labelledby="ModalRichiediAssistenza" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@SharedLocalizer["Richiesta di assistenza"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body onit-formmail">
+                <div class="onit-formmail-box onit-formmail-box-sm @(string.IsNullOrWhiteSpace(Model.EmailFrom) ? String.Empty : "disabled")">
+                    <span class="onit-formmail-label">@SharedLocalizer["Da"]:&nbsp;</span>
+                    @if (string.IsNullOrWhiteSpace(Model.EmailFrom))
+                    {
+                        <input class="onit-formmail-email" v-model="model.emailFrom"/>
+                    }
+                    else
+                    {
+                        <div class="onit-formmail-email">@Model.EmailFrom</div>
+                    }
+                </div>
+                <div class="onit-formmail-box onit-formmail-box-sm disabled">
+                    <div class="onit-formmail-label">@SharedLocalizer["A"]:&nbsp;</div><div class="onit-formmail-email">@String.Join("; ", Model.EmailTo)</div>
+                    <button class="btn btn-link btn-sm ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCc" aria-expanded="false" aria-controls="collapseCc">
+                        @SharedLocalizer["Cc"]
+                    </button>
+                    <button class="btn btn-link btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCcn" aria-expanded="false" aria-controls="collapseCcn">
+                        @SharedLocalizer["Ccn"]
+                    </button>
+                </div>
+                <div class="collapse" id="collapseCc">
+                    <div class="onit-formmail-box onit-formmail-box-sm">
+                        <div class="onit-formmail-label">@SharedLocalizer["Cc"]:&nbsp;</div>
+                        <vue-multiselect class="form-select-sm border-0"
+                                         v-model="model.emailCC"
+                                         placeholder=""
+                                         label="text"
+                                         track-by="value"
+                                         :options="model.emailOptions"
+                                         :multiple="true"
+                                         :taggable="true">
+                        </vue-multiselect>
+                    </div>
+                </div>
+                <div class="collapse" id="collapseCcn">
+                    <div class="onit-formmail-box onit-formmail-box-sm">
+                        <div class="onit-formmail-label">@SharedLocalizer["Ccn"]:&nbsp;</div>
+                        <vue-multiselect class="form-select-sm border-0"
+                                         v-model="model.emailCCN"
+                                         placeholder=""
+                                         label="text"
+                                         track-by="value"
+                                         :options="model.emailOptions"
+                                         :multiple="true"
+                                         :taggable="true">
+                        </vue-multiselect>
+                    </div>
+                </div>
+                <div class="onit-formmail-box">
+                    <div class="onit-formmail-label">@SharedLocalizer["Oggetto"]:&nbsp;</div>
+                    <vue-mce v-model="model.subject"
+                             class="onit-mce-content-body-custom-styles"
+                             :init="{
+                                // Questa config serve per evitare che il contenuto venga wrappato in un p di default (solo a livello di interfaccia)
+                                forced_root_block: false,
+                                menubar: false,
+                                toolbar: false,
+                                inline: true,
+                                entity_encoding: 'raw',
+                                plugins: 'autoresize paste',
+                                paste_as_text: true,
+                                valid_elements: 'p',
+                                invalid_elements : 'p',
+                                block_unsupported_drop: false,
+                                setup: function(editor) {
+                                    // Questa funzione impedisce all'utente di creare una nuova riga. Disabilitare se si vuole lo stesso effetto di una textarea
+                                    editor.on('keydown', function(e) {
+                                        return (e.keyCode != 13);
+                                    });
+                                }
+                            }">
+                    </vue-mce>
+                </div>
+                <div class="onit-formmail-box flex-column">
+                    <label class="onit-formmail-content-label">@Model.StandardContent</label>
+                    <vue-mce v-model="model.content"
+                             class="onit-mce-content-body-custom-styles"
+                             :init="{
+                                language: '@(requestCulture.RequestCulture.UICulture.Name == " it" ? "it" : "en_US" )',
+                                     language_url: '/js/tinymce/languages.js' ,
+                                     menubar: false,
+                                     inline: true,
+                                     plugins: 'autolink link lists advlist table image quickbars codesample autoresize code paste' ,
+                                     toolbar: false,
+                                     quickbars_insert_toolbar: 'quicktable image link codesample' ,
+                                     quickbars_selection_toolbar: 'styleselect | bold italic underline strikethrough | numlist bullist | align indent outdent | removeformat | blockquote quicklink' ,
+                                     contextmenu: 'undo redo | inserttable | cell row column deletetable' ,
+                                     paste_retain_style_properties: 'font-weight font-style' ,
+                                     paste_postprocess: function (plugin, args) {
+                                     var tables=args.node.getElementsByTagName('table');
+                                     for (var table of tables) {
+                                     table.setAttribute('border', '1' );
+                                     table.style.borderColor='#000000' ;
+                                     table.style.borderStyle='solid' ;
+                                     }
+                                     // Rimosso link
+                                     var links=Array.prototype.slice.call(args.node.getElementsByTagName('a'), 0);
+                                     for (var link of links) {
+                                     if (link.hasAttribute('name') && link.getAttribute('name').startsWith('_Toc')) {
+                                     link.remove();
+                                     }
+                                     }
+                                     },
+                                     }">
+                    </vue-mce>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" v-on:click="inviaSegnalazione()" title="@SharedLocalizer["Invia richiesta"]"><i class="fa-solid fa-paper-plane"></i>&nbsp;@SharedLocalizer["Invia richiesta"]</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" title="@SharedLocalizer["Annulla"]">@SharedLocalizer["Annulla"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section styles{
+    <link href="~/css/bundle-vue-tinymce.css" asp-append-version="true" rel="stylesheet" />
+    <link href="~/css/bundle-vue-multiselect.css" asp-append-version="true" rel="stylesheet" />
+}
+@section scripts{
+    <script src="~/js/bundle-vue.js" asp-append-version="true"></script>
+    <script src="~/node_modules/tinymce/tinymce.min.js " asp-append-version="true"></script>
+    <script src="~/node_modules/@@tinymce/tinymce-vue/lib/browser/tinymce-vue.js" asp-append-version="true"></script>
+    <script src="~/node_modules/vue-multiselect/dist/vue-multiselect.min.js" asp-append-version="true"></script>
+    <script src="~/Features/Home/Error.js" asp-append-version="true"></script>
+
+    <script type="application/json" id="Seed_JSON">
+        @Html.Raw(Model.ToJson())
+    </script>
+    <script type="text/javascript">
+
+        var errorVueModel = new Home.errorVueModel(JSON.parse(document.getElementById("Seed_JSON").innerText));
+
+        Vue.component('vue-mce', Editor);
+        Vue.component("vue-multiselect", VueMultiselect.Multiselect);
+
+        var vueModel = new Vue({
+            el: '#pageId',
+            data: errorVueModel
+        });
+
+    </script>
+}

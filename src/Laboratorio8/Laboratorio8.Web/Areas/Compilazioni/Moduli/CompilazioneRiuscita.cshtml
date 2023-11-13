@@ -1,0 +1,30 @@
+﻿@model Guid?
+@{
+    ViewData["Title"] = SharedLocalizer["Compilazione completata"].Value;
+}
+
+@section pageTitle{
+    <nav class="navbar navbar-expand navbar-light flex-wrap onit-page-title">
+        <div class="navbar-brand text-truncate">
+            @ViewData["Title"]
+        </div>
+    </nav>
+}
+
+<div class="onit-page-main">
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success">
+                    <p>Il modulo è stato compilato con successo, grazie per la collaborazione!</p>
+
+                    @if (Model != null)
+                    {
+                        <a href="@Url.Action(MVC.Compilazioni.Moduli.Download(Model.Value))" target="_blank"><i class="fas fa-print"></i> Download</a>
+                        <a href="@Url.Action(MVC.Compilazioni.Moduli.Report(Model.Value, true))"><i class="fas fa-file"></i> Anteprima</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

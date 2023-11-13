@@ -1,0 +1,394 @@
+@using Microsoft.Extensions.Options
+@inject IHtmlLocalizer<LineeGuida.Web.SharedResource> SharedLocalizer
+@inject IOptions<AppSettings> appSettings
+@{
+    Layout = "_LayoutHtml";
+}
+@section metas{
+    @RenderSection("metas", false)
+}
+    @section styles{
+    @RenderSection("styles", false)
+}
+    <div id="pageId" class="onit-page">
+        <div class="onit-page-sticky-top" id="onit-page-sticky-top">
+            <nav class="navbar navbar-expand-lg navbar-dark onit-page-menu">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/">
+                        <img class="onit-suites-logo" src="~/images/logo-Onplant.png" />
+                        <span class="onit-suites-app-logo">@SharedLocalizer["Linee guida"]</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="collapse navbar-collapse flex-wrap" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            @* CASO D'USO WMS HISTORY CUSTOM
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCustomHistory" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-clock-rotate-left"></i></a>
+                        <div class="dropdown-menu"></div>
+                        </li>*@
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle @ViewContext.ActiveClassIf(MVC.Regole.Name, null, null)" href="@Url.Action(MVC.Regole.OperationsAndSupplyChainDivision.Introduzione())">@SharedLocalizer["Regole"]</a>
+                            </li>
+                            <li class="nav-item dropdown onit-megamenu">
+                                <a class="nav-link dropdown-toggle @ViewContext.ActiveClassIf(MVC.Esempi.Name, null, null)" href="#" id="navbarDropdownEsempi" data-bs-toggle="dropdown" aria-expanded="false">@SharedLocalizer["Esempi"]</a>
+                                <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownEsempi">
+                                    <!-- onit-megamenu mi permette di innestare una row e stilizzare il layout del menu -->
+                                    <div class="row">
+                                        <div class="col-12 col-lg-3 py-1 p-lg-4">
+                                            <nav>
+                                                <h2>@SharedLocalizer["Anagrafiche"]</h2>
+                                                <nav>
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Esempi.Clienti.Name,
+                                                                    MVC.Esempi.Clienti.ActionNames.Index, MVC.Esempi.Clienti.ActionNames.Edit)"
+                                                   href="@Url.Action(MVC.Esempi.Clienti.Index())">@SharedLocalizer["Clienti"]</a>
+
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+<<<<<<< Updated upstream
+                                                                    MVC.Esempi.Clienti.Name,
+                                                                    MVC.Esempi.Clienti.ActionNames.IndexTouch)"
+                                                   href="@Url.Action(MVC.Esempi.Clienti.IndexTouch())">@SharedLocalizer["Clienti"] <span class="badge onit-megamenu-badge">@SharedLocalizer["Variante touch"]</span></a>
+
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+=======
+>>>>>>> Stashed changes
+                                                                    MVC.Esempi.Clienti.Name,
+                                                                    MVC.Esempi.Clienti.ActionNames.IndexTemplate)"
+                                                   href="@Url.Action(MVC.Esempi.Clienti.IndexTemplate())">@SharedLocalizer["Clienti"] <span class="badge onit-megamenu-badge">@SharedLocalizer["Variante template"]</span></a>
+
+<<<<<<< Updated upstream
+=======
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Esempi.Clienti.Name,
+                                                                    MVC.Esempi.Clienti.ActionNames.IndexTouch)"
+                                                   href="@Url.Action(MVC.Esempi.Clienti.IndexTouch())">@SharedLocalizer["Clienti"] <span class="badge onit-megamenu-badge">@SharedLocalizer["Variante touch"]</span></a>
+>>>>>>> Stashed changes
+                                                </nav>
+                                                <h3 class="pt-4">@SharedLocalizer["Anagrafiche con selezioni"]</h3>
+                                                <nav>
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Esempi.Clienti.Name,
+                                                                    MVC.Esempi.Clienti.ActionNames.ConSelezione)"
+                                                   href="@Url.Action(MVC.Esempi.Clienti.ConSelezione())">@SharedLocalizer["Clienti"]</a>
+
+
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+<<<<<<< Updated upstream
+                                                                    MVC.Esempi.Clienti.Name,
+                                                                    MVC.Esempi.Clienti.ActionNames.ConSelezioneTouch)"
+                                                   href="@Url.Action(MVC.Esempi.Clienti.ConSelezioneTouch())">@SharedLocalizer["Clienti"] <span class="badge onit-megamenu-badge">@SharedLocalizer["Variante touch"]</span></a>
+
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+=======
+>>>>>>> Stashed changes
+                                                                    MVC.Esempi.Clienti.Name,
+                                                                    MVC.Esempi.Clienti.ActionNames.ConSelezioneTemplate)"
+                                                   href="@Url.Action(MVC.Esempi.Clienti.ConSelezioneTemplate())">@SharedLocalizer["Clienti"] <span class="badge onit-megamenu-badge">@SharedLocalizer["Variante template"]</span></a>
+
+<<<<<<< Updated upstream
+=======
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Esempi.Clienti.Name,
+                                                                    MVC.Esempi.Clienti.ActionNames.ConSelezioneTouch)"
+                                                   href="@Url.Action(MVC.Esempi.Clienti.ConSelezioneTouch())">@SharedLocalizer["Clienti"] <span class="badge onit-megamenu-badge">@SharedLocalizer["Variante touch"]</span></a>
+>>>>>>> Stashed changes
+                                                </nav>
+                                            </nav>
+                                        </div>
+                                        <div class="col-12 col-lg-3 py-1 p-lg-4">
+                                            <h2>@SharedLocalizer["Maschere di lavoro"]</h2>
+                                            <nav class="mb-3">
+                                                <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Esempi.Logs.Name,
+                                                                    MVC.Esempi.Logs.ActionNames.Index)"
+                                               href="@Url.Action(MVC.Esempi.Logs.Index())">@SharedLocalizer["Analisi Log"]  <span class="badge onit-megamenu-badge">Master-detail</span></a>
+                                                <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Esempi.Fullscreen.Name,
+                                                                    MVC.Esempi.Fullscreen.ActionNames.Index)"
+                                               href="@Url.Action(MVC.Esempi.Fullscreen.Index())">Fullscreen <span class="badge onit-megamenu-badge">@SharedLocalizer["Tabelle dense"]</span></a>
+                                                <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Esempi.Fullscreen.Name,
+                                                                    MVC.Esempi.Fullscreen.ActionNames.Monitoring)"
+                                               href="@Url.Action(MVC.Esempi.Fullscreen.Monitoring())">Monitoring</a>
+                                            </nav>
+                                        </div>
+                                        <div class="col-12 col-lg-3 py-1 p-lg-4">
+                                            <h2>@SharedLocalizer["Upload allegati"]</h2>
+                                            @*                                        <nav>
+                                        <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                        MVC.Esempi.AllegatiMatite.Name,
+                                        MVC.Esempi.AllegatiMatite.ActionNames.Index)"
+                                        href="@Url.Action(MVC.Esempi.AllegatiMatite.Index())">@SharedLocalizer["Allegati"]</a>
+                                        </nav>*@
+                                            <h2 class="pt-2">@SharedLocalizer["Vue"]</h2>
+                                            <nav>
+                                                <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Esempi.Vue.Name,
+                                                                    MVC.Esempi.Vue.ActionNames.Index)"
+                                               href="@Url.Action(MVC.Esempi.Vue.Index())">@SharedLocalizer["Chiamate asincrone"]</a>
+                                            </nav>
+                                            <h2 class="pt-2">@SharedLocalizer["Login"]</h2>
+                                            <nav>
+                                                <a class="onit-megamenu-link"
+                                               href="@Url.Action(MVC.Login.Index())">@SharedLocalizer["Login"]</a>
+                                            </nav>
+                                        </div>
+                                        @*<div class="col-12 col-lg-3 py-1 p-lg-4 bg-light text-dark">
+                                    <h4>Esempi</h4>
+                                    <p class="small">Vengono presentati vari casi d'uso e alcune implementazioni tipiche per coprirli in maniera completa</p>
+                                    </div>*@
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown onit-megamenu">
+                                <a class="nav-link dropdown-toggle @ViewContext.ActiveClassIf(MVC.Componenti.Name, null, null)" href="#" id="navbarDropdownComponenti" data-bs-toggle="dropdown" aria-expanded="false">@SharedLocalizer["Componenti"]</a>
+                                <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownComponenti">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-3 py-1 p-lg-4">
+                                            <nav>
+                                                <h2>@SharedLocalizer["Layout"]</h2>
+                                                <nav>
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Componenti.Name,
+                                                                    MVC.Componenti.Container.Name,
+                                                                    MVC.Componenti.Container.ActionNames.Index)"
+                                                   href="@Url.Action(MVC.Componenti.Container.Index())">Container</a>
+
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Componenti.Name,
+                                                                    MVC.Componenti.Tabelle.Name,
+                                                                    MVC.Componenti.Tabelle.ActionNames.Index)"
+                                                   href="@Url.Action(MVC.Componenti.Tabelle.Index())">@SharedLocalizer["Tabelle"]</a>
+
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Componenti.Name,
+                                                                    MVC.Componenti.Alert.Name,
+                                                                    MVC.Componenti.Alert.ActionNames.Index)"
+                                                   href="@Url.Action(MVC.Componenti.Alert.Index())">Alert</a>
+
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Componenti.Name,
+                                                                    MVC.Componenti.LeftMenu.Name,
+                                                                    MVC.Componenti.LeftMenu.ActionNames.Index)"
+                                                   href="@Url.Action(MVC.Componenti.LeftMenu.Index())">LeftMenu</a>
+
+                                                    @*<a class="onit-megamenu-link @ViewContext.ActiveCalssIf(MVC.Componenti.Name,
+                                                MVC.Componenti.OnitPageMap.Name,
+                                                MVC.Componenti.OnitPageMap.ActionNames.Index)"
+                                                href="@Url.Action(MVC.Componenti.OnitPageMap.Index())">PageMap</a>*@
+
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Componenti.Name,
+                                                                    MVC.Componenti.Loading.Name,
+                                                                    MVC.Componenti.Loading.ActionNames.Index)"
+                                                   href="@Url.Action(MVC.Componenti.Loading.Index())">Loading</a>
+
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Componenti.Name,
+                                                                    MVC.Componenti.ScrollSpy.Name,
+                                                                    MVC.Componenti.ScrollSpy.ActionNames.Index)"
+                                                   href="@Url.Action(MVC.Componenti.ScrollSpy.Index())">Scrollspy</a>
+
+                                                    @*<a class="onit-megamenu-link @ViewContext.ActiveCalssIf(MVC.Componenti.Name,
+                                                MVC.Componenti.MenuSm.Name,
+                                                MVC.Componenti.MenuSm.ActionNames.Index)"
+                                                href="@Url.Action(MVC.Componenti.MenuSm.Index())">MenuSm</a>*@
+
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Componenti.Name,
+                                                                    MVC.Componenti.OnitInputGroupUnion.Name,
+                                                                    MVC.Componenti.OnitInputGroupUnion.ActionNames.Index)"
+                                                   href="@Url.Action(MVC.Componenti.OnitInputGroupUnion.Index())">Onit Input-Group-Union</a>
+
+                                                    <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Componenti.Name,
+                                                                     MVC.Componenti.DebounceAndThrottle.Name,
+                                                                     MVC.Componenti.DebounceAndThrottle.ActionNames.Index)"
+                                                   href="@Url.Action(MVC.Componenti.DebounceAndThrottle.Index())">Debounce & Throttle</a>
+                                                </nav>
+
+                                            </nav>
+                                        </div>
+                                        <div class="col-12 col-lg-3 py-1 p-lg-4">
+                                            <h2>@SharedLocalizer["Nativi"]</h2>
+                                            <nav class="mb-3">
+
+                                                <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Componenti.DateTimePickerNativo.Name,
+                                                                    MVC.Componenti.DateTimePickerNativo.ActionNames.Index)"
+                                               href="@Url.Action(MVC.Componenti.DateTimePickerNativo.Index())">Datetimepicker nativo</a>
+
+                                                <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Componenti.ColorpickerNativo.Name,
+                                                                    MVC.Componenti.ColorpickerNativo.ActionNames.Index)"
+                                               href="@Url.Action(MVC.Componenti.ColorpickerNativo.Index())">Colorpicker nativo</a>
+
+                                            </nav>
+                                        </div>
+                                        <div class="col-12 col-lg-3 py-1 p-lg-4">
+                                            <h2>@SharedLocalizer["Vue"]</h2>
+                                            <nav class="mb-3">
+
+                                                <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Componenti.MultiSelect.Name,
+                                                                    MVC.Componenti.MultiSelect.ActionNames.Index)"
+                                               href="@Url.Action(MVC.Componenti.MultiSelect.Index())">Multiselect</a>
+
+                                                <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Componenti.Tinymce.Name,
+                                                                    MVC.Componenti.Tinymce.ActionNames.Index)"
+                                               href="@Url.Action(MVC.Componenti.Tinymce.Index())">Tinymce</a>
+
+                                                <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Componenti.CurrencyInput.Name,
+                                                                    MVC.Componenti.CurrencyInput.ActionNames.Index)"
+                                               href="@Url.Action(MVC.Componenti.CurrencyInput.Index())">
+                                                    Currency input
+                                                </a>
+                                            </nav>
+                                        </div>
+                                        <div class="col-12 col-lg-3 py-1 p-lg-4">
+                                            <h2>@SharedLocalizer["Migrazione bootstrap5"]</h2>
+                                            <nav>
+                                                <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Componenti.MigrazioneBootstrap5.Name,
+                                                                    MVC.Componenti.MigrazioneBootstrap5.ActionNames.Index)"
+                                               href="@Url.Action(MVC.Componenti.MigrazioneBootstrap5.Index())">Migrazione bootstrap 5</a>
+                                            </nav>
+                                            <h2 class="pt-2">@SharedLocalizer["Migrazione fontawesome6"]</h2>
+                                            <nav>
+                                                <a class="onit-megamenu-link @ViewContext.ActiveClassIf(MVC.Esempi.Name,
+                                                                    MVC.Componenti.MigrazioneFontAwesome6.Name,
+                                                                    MVC.Componenti.MigrazioneFontAwesome6.ActionNames.Index)"
+                                               href="@Url.Action(MVC.Componenti.MigrazioneFontAwesome6.Index())">Migrazione font awesome 6</a>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @ViewContext.ActiveClassIf(MVC.OWASP.Name, null, null)" aria-current="page" href="@Url.Action(MVC.OWASP.Introduzione.Index())">OWASP</a>
+                            </li>
+                        </ul>
+<<<<<<< Updated upstream
+                        <ul class="nav navbar-nav ms-auto">
+                            <li>
+                                <form class="form-inline mt-2 me-2">
+=======
+                        <ul class="nav navbar-nav ms-auto onit-page-menu-user">
+                            <li>
+                                <form class="form-inline mt-2 me-4">
+>>>>>>> Stashed changes
+                                    <div class="input-group onit-input-group-union">
+                                        <select class="form-select form-select-sm" aria-label="Default select example">
+                                            <option selected>@SharedLocalizer["Ricerca generale"]</option>
+                                            <option value="1">@SharedLocalizer["Ricerca in clienti"]</option>
+                                            <option value="2">@SharedLocalizer["Ricerca in fatture"]</option>
+                                        </select>
+                                        <input class="form-control form-control-sm" type="search" placeholder="..." aria-label="Search">
+                                        <button class="btn btn-light btn-sm" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                    </div>
+                                </form>
+                            </li>
+<<<<<<< Updated upstream
+                            <li class="nav-item onit-nav-item-pulse" onclick="this.classList.remove('onit-nav-item-pulse')"><a class="nav-link" href="#"><i class="fa-solid fa-bell"></i></a></li>
+=======
+                            <li class="nav-item" onclick="this.classList.remove('onit-nav-item-pulse')">
+                                <a class="nav-link" href="#"><i class="fa-solid fa-bell"></i></a>
+                                </li>
+>>>>>>> Stashed changes
+                            <li class="nav-item dropdown @ViewContext.ActiveClassIf(MVC.Aiuto.Name,null,null,null)">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAiuto" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    ?
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdownAiuto">
+                                    <h6 class="dropdown-header">@SharedLocalizer["Documentatazione"]</h6>
+                                    <a class="dropdown-item" href="@(appSettings.Value.ManualeProdotto)" target="_blank"><i class="fa-solid fa-book"></i> @SharedLocalizer["Manuale"]</a>
+                                    <a class="dropdown-item" href="@Url.Action(MVC.Aiuto.ReleaseNotes.Index())"><i class="fa-solid fa-code-branch"></i> @SharedLocalizer["Note di release"]</a>
+                                    <div class="dropdown-divider"></div>
+                                    <h6 class="dropdown-header">Contattaci</h6>
+                                    <a class="dropdown-item" href="@Url.Action(MVC.Aiuto.Assistenza.RichiediAssistenza())" title="@SharedLocalizer["Invia una mail per ricevere assistenza"]"><i class="fa-solid fa-circle-question"></i> @SharedLocalizer["Chiedi assistenza"]</a>
+                                    <a class="dropdown-item" href="@Url.Action(MVC.Aiuto.Assistenza.SuggerisciUnFeedback())" title="@SharedLocalizer["Invia una mail per suggerire un feedback"]><i class="fa-solid fa-star-half-stroke"></i> @SharedLocalizer["Suggerisci un feedback"]</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="@Url.Action(MVC.Aiuto.About.Index())">About</a>
+                                </div>
+                            </li>
+<<<<<<< Updated upstream
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAzienda" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Onit S.r.l.
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdownAzienda">
+                                    <h6 class="dropdown-header">@SharedLocalizer["Cambia azienda"]</h6>
+                                    <a class="dropdown-item active" href="#">Onit S.r.l.</a>
+                                    <a class="dropdown-item" href="#">@SharedLocalizer["Azienda 2"]</a>
+                                    <a class="dropdown-item" href="#">@SharedLocalizer["Azienda 3"]</a>
+                                </div>
+                            </li>
+                            @await Html.PartialAsync("_SelectLanguagePartial")
+                            <li class="nav-item dropdown" style="display:none;" id="internationalization-alert">
+=======
+
+                            @await Html.PartialAsync("_SelectLanguagePartial")
+@*                            <li class="nav-item dropdown" style="display:none;" id="internationalization-alert">
+>>>>>>> Stashed changes
+                                <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="fa-solid fa-exclamation-triangle text-warning"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                                    <li>
+                                        <div class="dropdown-item-text">
+                                            <h3 class="text-nowrap text-warning">@SharedLocalizer["Attenzione negli inserimenti"]</h3>
+                                            @SharedLocalizer["La lingua del browser differisce dalla lingua richiesta."]
+                                            <strong>@SharedLocalizer["Durante gli inserimenti visualizzerai le date e i numeri nel formato del browser."]</strong>
+                                        </div>
+                                    </li>
+                                </ul>
+<<<<<<< Updated upstream
+                            </li>
+=======
+                            </li>*@
+>>>>>>> Stashed changes
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                    <i class="fa-solid fa-circle-user"></i>&nbsp;@SharedLocalizer["Utente"]
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end" role="menu">
+                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i>&nbsp;@SharedLocalizer["Impostazioni"]</a>
+                                    <hr class="dropdown-divider">
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="javascript: document.getElementById('POST_LogOut').submit()" title="@SharedLocalizer["Chiudi sessione di lavoro"]">
+                                        <i class="fa-solid fa-right-from-bracket"></i>&nbsp;@SharedLocalizer["Esci"]
+                                    </a>
+                                    <form autocomplete="off" method="post" action="#" id="POST_LogOut" display="none"></form>
+                                </div>
+                            </li>
+<<<<<<< Updated upstream
+=======
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAzienda" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-buildings"></i>&nbsp;Onit S.r.l.
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdownAzienda">
+                                    <h6 class="dropdown-header">@SharedLocalizer["Cambia azienda"]</h6>
+                                    <a class="dropdown-item active" href="#">Onit S.r.l.</a>
+                                    <a class="dropdown-item" href="#">@SharedLocalizer["Azienda 2"]</a>
+                                    <a class="dropdown-item" href="#">@SharedLocalizer["Azienda 3"]</a>
+                                </div>
+                            </li>
+>>>>>>> Stashed changes
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            @RenderSection("pageTitle", false)
+        </div>
+        @RenderSection("pageSubtitle", false)
+        @RenderBody()
+    </div>
+    @section googlehead{
+    @*<script async src="https://www.googletagmanager.com/gtag/js?id=UA-"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-', { 'anonymize_ip': true });    // Ricordarsi di anonimizzare per fare ricadere il cookie tra quelli tecnici ed evitare l'obbligo del banner
+    </script>*@
+    }
+    @section scripts{
+    @this.RenderScriptAlertsWithToastify()
+    @this.RenderScriptStickyTopOffset("onit-page-sticky-top")
+    @this.RenderScriptAlertsBrowserInternationalizzations("internationalization-alert")
+    @RenderSection("scripts", false)
+}

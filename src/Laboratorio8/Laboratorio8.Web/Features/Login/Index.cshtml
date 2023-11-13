@@ -1,0 +1,34 @@
+﻿@model Laboratorio8.Web.Features.Login.LoginViewModel
+@{
+    Layout = "_LayoutLoginBox";
+    ViewData["Title"] = "Login";
+}
+<form method="post" class="form-horizontal onit-form-sm onit-login-box-form" role="form" autocomplete="off">
+    @* @Html.AntiForgeryToken() viene generato automaticamente in asp-for tag helper*@
+    <input asp-for="ReturnUrl" type="hidden" />
+    @Html.ValidationSummary(true)
+
+    <div class="form-group">
+        <label asp-for=Email class="onit-label-required" title="@SharedLocalizer["obbligatorio"]"></label>
+        <div class="input-group onit-input-group-union">
+            <input asp-for="Email" class="form-control" type="text" />
+            <span class="input-group-text"><i class="fa-solid fa-fw fa-envelope"></i></span>
+        </div>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <div class="form-check form-switch">
+            <input asp-for="RememberMe" class="form-check-input" role="switch">
+            <label asp-for="RememberMe" class="form-check-label"></label>
+        </div>
+    </div>
+
+    <div class="form-group text-center mt-4">
+        <button type="submit" class="btn btn-primary btn-lg"><i class="fa-solid fa-right-to-bracket"></i>&nbsp;@SharedLocalizer["Accedi"]</button>
+    </div>
+
+@*    <div class="form-group text-center">
+        <a class="btn btn-link btn-sm text-muted" href="#">@SharedLocalizer["Password dimenticata?"]</a>
+    </div>*@
+</form>
