@@ -11,7 +11,7 @@ namespace Laboratorio8.Web.Features.Login
 {
     [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     [Alerts]
-    //[ModelStateToTempData]
+    [ModelStateToTempData]
     public partial class LoginController : Controller
     {
         IStringLocalizer<SharedResource> _sharedLocalizer;

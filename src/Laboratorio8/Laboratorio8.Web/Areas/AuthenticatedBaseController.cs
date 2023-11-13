@@ -11,6 +11,7 @@ using Laboratorio8.Web.Infrastructure;
 namespace Laboratorio8.Web.Areas
 {
     [Authorize]
+    [ModelStateToTempData]
     [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public partial class AuthenticatedBaseController : Controller
     {

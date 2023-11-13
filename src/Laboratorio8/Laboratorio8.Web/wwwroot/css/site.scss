@@ -1,6 +1,11 @@
 ﻿@import "site.variables.scss";
 
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+@import "site.login.scss";
+@import "site.layout.scss";
+@import "site.utilities.scss";
+
 @import "site.code-example-rendered.scss";
 @import "site.scrollable-box.scss";
 @import "site.file-import-export.scss";
-@import "site.general.scss";

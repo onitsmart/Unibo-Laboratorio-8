@@ -1,5 +1,14 @@
 ﻿// VARIABILI NOSTRE E DI BOOTSTRAP
 
+$white: #FFFFFF;
+$black: #000000;
+    
+$color-app: #00B300;
+$color-body: black;
+$color-background-dark: #373737;
+$color-background-title: #E4E4E4;
+$color-background-subtitle: #EFEFEF;
+
 // Importo prima le funzioni utilizzate dentro le variabili altrimenti non compila
 @import "../../node_modules/bootstrap/scss/_functions";
 // Importo le variabili bootstrap per poterle ri utilizzare

@@ -12,6 +12,11 @@
             background-image: url('../images/login-example.jpg'); /* Select the correct size and compression for better performance */
             background-position: center;
             background-size: cover;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-y: scroll;
         }
     </style>
     @RenderSection("styles", false)
@@ -26,7 +31,7 @@
         <div class="onit-login-box-footer">
             <ul class="nav onit-login-box-footer-company-nav">
                 <li class="nav-item dropdown ">
-                    <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="~/images/logo-utilities.png" /></a>
+                    <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="~/images/logo-onit.png" /></a>
                     <ul class="dropdown-menu">
                         <li>
                             <span class="dropdown-item-text text-muted">

@@ -1,4 +1,6 @@
-﻿.number-circle {
+﻿@import "site.variables.scss";
+
+.number-circle {
     border-radius: 50%;
     border: 2px solid #000000;
     width: 28px;

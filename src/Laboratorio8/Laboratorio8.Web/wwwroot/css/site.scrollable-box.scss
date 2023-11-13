@@ -1,4 +1,6 @@
-﻿.scrollable-box {
+﻿@import "site.variables.scss";
+
+.scrollable-box {
     height: 10rem;
     overflow: auto;
 }
