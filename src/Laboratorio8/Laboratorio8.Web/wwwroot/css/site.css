@@ -11943,29 +11943,6 @@ textarea.form-control-lg {
   flex-wrap: wrap;
 }
 
-.onit-html-fullscreen {
-  height: 100%;
-  overflow: hidden;
-}
-
-.onit-html-fullscreen {
-  height: 100%;
-  overflow: hidden;
-}
-.onit-html-fullscreen body {
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-.onit-html-fullscreen body .onit-page {
-  flex-grow: 1;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
 .navbar-brand {
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
@@ -12024,6 +12001,63 @@ textarea.form-control-lg {
   padding-bottom: 15px;
 }
 
+.onit-html-fullscreen {
+  height: 100%;
+  overflow: hidden;
+}
+
+.onit-html-fullscreen {
+  height: 100%;
+  overflow: hidden;
+}
+.onit-html-fullscreen body {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.onit-html-fullscreen body .onit-page {
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 992px) {
+  .onit-html-fullscreen-lg {
+    height: 100%;
+    overflow: hidden;
+  }
+  .onit-html-fullscreen-lg body {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .onit-html-fullscreen-lg body .onit-page {
+    flex-grow: 1;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .onit-html-fullscreen-lg body .onit-page .onit-page-main {
+    flex-grow: 1;
+    height: 100%;
+    overflow: hidden;
+    padding: 0;
+  }
+  .onit-html-fullscreen-lg body .onit-page .onit-page-main .onit-html-fullscreen-keep-100 {
+    height: 100%;
+    overflow: hidden;
+  }
+  .onit-html-fullscreen-lg body .onit-page .onit-table-container-for-fixed-column {
+    overflow: scroll;
+    position: relative;
+    padding: 0;
+  }
+}
 .user-profile-picture {
   width: 22px;
   height: 22px;
